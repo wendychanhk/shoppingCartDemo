@@ -1,0 +1,32 @@
+<h1>Shopping Basket</h1>
+
+<% total = 0 %> 
+<ul>
+<% @basket.each do | id, quantity | %>
+	<% product = Product.find_by_id(id) %> 
+
+
+	<li>
+	<p><%= link_to product.name, product %></p>
+	<p><%= product.details %></p>
+	<p><%=number_to_currency(product.price, :unit => '$')%></p>
+	<p><%= product.category %></p>
+	<p>Quantity: <%= quantity %></p>
+	</li>
+	<% total += quantity * product.price  %> 
+<% end %> 
+
+
+
+<%=number_to_currency(total, :unit => '$')%> 
+
+
+</ul>
+
+<% if @basket.empty? %> 
+<p>Your basket is empty</p>
+<%else %> 
+<% link_to "Empty Basket", basket_empty_path %> 
+<% end %> 
+
+
